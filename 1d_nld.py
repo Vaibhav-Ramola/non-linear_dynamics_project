@@ -20,12 +20,29 @@ def findIntersectionPoints(f, g):
     return idx
 
 def plotStableUnstable(indexArray):
+    indexArrayForStablePts = []
+    indexArrayForUnstablePoints = []
+
     for index in indexArray:
         if x_dot[index+1]>0 and x_dot[index-1]<0:
-            axs.plot(x[index], x_dot[index], marker='o', markerfacecolor='none', markeredgecolor='blue', label="Stable Points")
+            indexArrayForStablePts = indexArrayForStablePts + [index]
         elif x_dot[index+1]<0 and x_dot[index-1]>0:
-            axs.plot(x[index], x_dot[index], marker='o', markerfacecolor='blue', label="Unstable Points")
+            indexArrayForUnstablePoints = indexArrayForUnstablePoints + [index]
     
+    axs.scatter(x[indexArrayForStablePts], 
+            x_dot[indexArrayForStablePts], 
+            marker='o',
+            facecolor='blue',
+            edgecolor='blue', 
+            label='Stable Points')
+
+    axs.scatter(x[indexArrayForUnstablePoints], 
+            x_dot[indexArrayForUnstablePoints], 
+            marker='o',
+            facecolor='none',
+            edgecolor='blue', 
+            label='Unstable Points')
+            
 
 
 x1 = eval(input("x1 : "))
@@ -39,7 +56,7 @@ y_axis = np.arange(-max_of_x_dot, max_of_x_dot, 0.001)         # y-axis is defin
 
 axs.plot(np.zeros(y_axis.shape), y_axis, '--k')                # plotting the y-axis with dashed line{'--'} and black color{'k'}
 axs.plot(x, np.zeros(x.shape), '--k')                          # plotting the x-axis with dashed line{'--'} and black color{'k'}
-#  **********     check 'fmt' string arguments for customizing plots in matplotlib     **********
+#       **********     check 'fmt' string arguments for customizing plots in matplotlib     **********
 
 axs.plot(x, x_dot, "-b")        #   plotting the x_dot v/s x variation in blue color
 
@@ -62,14 +79,14 @@ axs.annotate("",
 # To add arrowhead to the right of x-axis
 axs.annotate("", 
     xy=(np.max(x), 0), 
-    xytext=(np.max(x)+1, 0), 
+    xytext=(np.max(x)+0.01, 0), 
     arrowprops=dict(facecolor='black', 
     arrowstyle='<-'))
 
 # To add arrowhead to the left of x-axis
 axs.annotate("", 
-    xy=(-np.max(x), 0), 
-    xytext=(-np.max(x)-1, 0), 
+    xy=(np.min(x), 0), 
+    xytext=(np.min(x)-0.01, 0), 
     arrowprops=dict(facecolor='black', 
     arrowstyle='<-'))
 
@@ -92,7 +109,7 @@ plotStableUnstable(indexArray=index)                         # function to plot 
 #     axs.plot(*intersections.xy, 'ob')
 
 # *********** Implementation using shapely library **************
-
+axs.set_title("1D Variation : x_dot v/s x", fontsize=20, y=1.05)
 axs.grid(True)              # function to display grid on the plot
 axs.legend()                # function to show legends on the plot
 plt.tight_layout()          # function to remove extra padding around the plot
