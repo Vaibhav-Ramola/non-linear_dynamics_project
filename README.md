@@ -30,3 +30,6 @@ x_dot: np.exp(x)*np.sin(x)*(x**2) + 5       // equivalent numpy format, acceptab
 
 ## Screenshots
 
+![Graph Screenshot](https://github.com/Vaibhav-Ramola/non-linear_dynamics_project/blob/master/Graph.jpg)
+
+![Terminal Screenshot](https://github.com/Vaibhav-Ramola/non-linear_dynamics_project/blob/master/Terminal%20input.png)
