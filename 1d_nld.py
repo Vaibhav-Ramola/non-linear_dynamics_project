@@ -20,39 +20,41 @@ def findIntersectionPoints(f, g):
     return idx
 
 def plotStableUnstable(indexArray):
-    indexArrayForStablePts = []
+    indexArrayForStablePoints = []
     indexArrayForUnstablePoints = []
 
     for index in indexArray:
         if x_dot[index+1]>0 and x_dot[index-1]<0:
-            indexArrayForStablePts = indexArrayForStablePts + [index]
-        elif x_dot[index+1]<0 and x_dot[index-1]>0:
             indexArrayForUnstablePoints = indexArrayForUnstablePoints + [index]
+        elif x_dot[index+1]<0 and x_dot[index-1]>0:
+            indexArrayForStablePoints = indexArrayForStablePoints + [index]
     
-    axs.scatter(x[indexArrayForStablePts], 
-            x_dot[indexArrayForStablePts], 
+    axs.scatter(x[indexArrayForStablePoints], 
+            x_dot[indexArrayForStablePoints], 
             marker='o',
             facecolor='blue',
             edgecolor='blue', 
-            label='Stable Points')
+            label='Stable Points',
+            s=80)
 
     axs.scatter(x[indexArrayForUnstablePoints], 
             x_dot[indexArrayForUnstablePoints], 
             marker='o',
             facecolor='none',
             edgecolor='blue', 
-            label='Unstable Points')
+            label='Unstable Points',
+            s=80)
             
 
 
 x1 = eval(input("x1 : "))
 x2 = eval(input("x2 : "))
 
-x = np.arange(x1, x2, 0.001)
+x = np.linspace(x1, x2, 10000)
 x_dot = eval(input("x_dot : "))
 max_of_x_dot = np.amax(np.absolute(x_dot))
 
-y_axis = np.arange(-max_of_x_dot, max_of_x_dot, 0.001)         # y-axis is defined here
+y_axis = np.linspace(-max_of_x_dot, max_of_x_dot, 10000)         # y-axis is defined here
 
 axs.plot(np.zeros(y_axis.shape), y_axis, '--k')                # plotting the y-axis with dashed line{'--'} and black color{'k'}
 axs.plot(x, np.zeros(x.shape), '--k')                          # plotting the x-axis with dashed line{'--'} and black color{'k'}
@@ -65,14 +67,14 @@ axs.plot(x, x_dot, "-b")        #   plotting the x_dot v/s x variation in blue c
 # To add arrowhead on the top of y-axis
 axs.annotate("", 
     xy=(0, max_of_x_dot), 
-    xytext=(0, max_of_x_dot+0.01), 
+    xytext=(0, max_of_x_dot+0.1), 
     arrowprops=dict(facecolor='black', 
     arrowstyle='<-'))
 
 # To add arrowhead on the bottom of y-axis 
 axs.annotate("", 
     xy=(0, -max_of_x_dot), 
-    xytext=(0, -max_of_x_dot-0.01), 
+    xytext=(0, -max_of_x_dot-0.1), 
     arrowprops=dict(facecolor='black', 
     arrowstyle='<-'))
 
