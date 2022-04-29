@@ -46,15 +46,19 @@ def plotStableUnstable(indexArray):
             s=80)
             
 
+try:
+    x1 = eval(input("x1 : "))
+    x2 = eval(input("x2 : "))
 
-x1 = eval(input("x1 : "))
-x2 = eval(input("x2 : "))
+    x = np.linspace(x1, x2, 10000)
+    x_dot = eval(input("x_dot : "))
+    max_of_x_dot = np.amax(np.absolute(x_dot))
 
-x = np.linspace(x1, x2, 10000)
-x_dot = eval(input("x_dot : "))
-max_of_x_dot = np.amax(np.absolute(x_dot))
+    y_axis = np.linspace(-max_of_x_dot, max_of_x_dot, 10000)         # y-axis is defined here
+except:
+    print("Error has occured:\nExit Forced :):")
+    quit()
 
-y_axis = np.linspace(-max_of_x_dot, max_of_x_dot, 10000)         # y-axis is defined here
 
 axs.plot(np.zeros(y_axis.shape), y_axis, '--k')                # plotting the y-axis with dashed line{'--'} and black color{'k'}
 axs.plot(x, np.zeros(x.shape), '--k')                          # plotting the x-axis with dashed line{'--'} and black color{'k'}
